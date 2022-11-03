@@ -149,43 +149,31 @@ class _HomeState extends State<Home> {
                               children: [
                                 Icon(Icons.search),
                                 SizedBox(width: 20),
-                                (!isSearching)
-                                    ? InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            if (!isSearching) {
-                                              _handleSearchStart();
-                                              FocusScope.of(context)
-                                                  .requestFocus(searchFocus);
-                                            } else {
-                                              _handleSearchEnd();
-                                            }
-                                          });
-                                        },
-                                        child: Text(
-                                          "Search for a product",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      )
-                                    : Container(
-                                        width: kIsWeb
-                                            ? mediaWidth * .15
-                                            : mediaWidth * .3,
-                                        child: TextField(
-                                          controller: _searchQuery,
-                                          focusNode: searchFocus,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                          decoration: InputDecoration(
-                                              hintText: "Search ...",
-                                              hintStyle: TextStyle(
-                                                  color: Colors.white)),
-                                        ),
-                                      ),
+                                Container(
+                                  width: kIsWeb
+                                      ? mediaWidth * .15
+                                      : mediaWidth * .3,
+                                  child: TextFormField(
+                                    controller: _searchQuery,
+                                    focusNode: searchFocus,
+                                    onChanged: (value) {
+                                      _handleSearchStart();
+                                    },
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        errorBorder: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        fillColor: b,
+                                        hintText: "Search for product...",
+                                        hintStyle:
+                                            TextStyle(color: Colors.black)),
+                                  ),
+                                ),
                                 esb('w', dp),
                                 Transform.rotate(
                                   angle: 1.57,
