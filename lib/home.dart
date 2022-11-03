@@ -224,13 +224,15 @@ class _HomeState extends State<Home> {
                       itemBuilder: (context, index) {
                         final productModel = _searchList[index];
                         return ShowCards(
-                          index: index,
                           productModel: productModel,
                         );
                       },
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: kIsWeb ? 6 : 2,
-                          childAspectRatio: 0.8)),
+                          // crossAxisSpacing: 10,
+                          // mainAxisSpacing: 10,
+                          // mainAxisExtent: mediaHeight * .33,
+                          childAspectRatio: 0.75)),
             )
           ],
         ),

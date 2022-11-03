@@ -4,6 +4,41 @@ import 'package:flutter/material.dart';
 import 'package:softkodes/config.dart';
 import 'package:softkodes/models/productmodel.dart';
 
+class MyWidget extends StatelessWidget {
+  const MyWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class ShowCards extends StatefulWidget {
+  final ProductModel productModel;
+  const ShowCards({Key? key, required this.productModel}) : super(key: key);
+
+  @override
+  State<ShowCards> createState() => _ShowCardsState();
+}
+
+class _ShowCardsState extends State<ShowCards> {
+  bool hover = false;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      onHover: (value) {
+        setState(() {
+          hover = value;
+        });
+      },
+      child: hover
+          ? ProductCard2(productModel: widget.productModel)
+          : ProductCard(productModel: widget.productModel),
+    );
+  }
+}
+
 class AddidasCArd extends StatelessWidget {
   const AddidasCArd({
     Key? key,
@@ -121,53 +156,18 @@ class CategoryCard extends StatelessWidget {
   }
 }
 
-class ShowCards extends StatefulWidget {
-  const ShowCards({Key? key, required this.productModel, this.index})
-      : super(key: key);
-  final ProductModel productModel;
-  final index;
-
-  @override
-  State<ShowCards> createState() => _ShowCardsState();
-}
-
-class _ShowCardsState extends State<ShowCards> {
-  bool show = false;
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-        child: show
-            ? ProductCard2(productModel: widget.productModel)
-            : ProductCard(productModel: widget.productModel),
-        onTap: () {},
-        onHover: (val) {
-          print(widget.index);
-          setState(() {
-            show = val;
-          });
-        }
-        /*val--->true when user brings in mouse
-         val---> false when brings out his mouse*/
-        );
-  }
-}
-
-class ProductCard extends StatefulWidget {
-  final ProductModel productModel;
+class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
     required this.productModel,
   }) : super(key: key);
+  final ProductModel productModel;
 
-  @override
-  State<ProductCard> createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
+  // bool hover = false;
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(18),
+      margin: EdgeInsets.all(10),
       width: kIsWeb ? 500 : mediaWidth * .4,
       height: kIsWeb ? mediaHeight * .31 : mediaHeight * .55,
       decoration: BoxDecoration(
@@ -191,7 +191,7 @@ class _ProductCardState extends State<ProductCard> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: CachedNetworkImage(
-                imageUrl: widget.productModel.image,
+                imageUrl: productModel.image,
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -211,11 +211,11 @@ class _ProductCardState extends State<ProductCard> {
             padding: const EdgeInsets.all(4.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.end,
+              // mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.productModel.title,
+                  productModel.title,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -223,9 +223,9 @@ class _ProductCardState extends State<ProductCard> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 5),
                 Text(
-                  numformat(widget.productModel.price),
+                  numformat(productModel.price),
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 15,
@@ -242,126 +242,93 @@ class _ProductCardState extends State<ProductCard> {
   }
 }
 
-class ProductCard2 extends StatefulWidget {
+class ProductCard2 extends StatelessWidget {
   final ProductModel productModel;
-
   const ProductCard2({
     Key? key,
     required this.productModel,
   }) : super(key: key);
 
   @override
-  State<ProductCard2> createState() => _ProductCard2State();
-}
-
-class _ProductCard2State extends State<ProductCard2> {
-  @override
   Widget build(BuildContext context) {
     return Container(
-      width: 339,
-      height: 409,
-      child: Row(
+      // width: 339,
+      // height: 409,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+      ),
+      padding: const EdgeInsets.only(
+        bottom: 18,
+      ),
+      child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 339,
-            height: 409,
+            // height: 253.86,
             decoration: BoxDecoration(
+              color: b,
               borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
             ),
-            padding: const EdgeInsets.only(
-              bottom: 18,
+            child: Image.asset(
+              "assets/shoe.png",
+              fit: BoxFit.fill,
             ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(4),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 339,
-                  height: 253.86,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Image.asset(
-                    "assets/shoe.png",
-                    fit: BoxFit.fitHeight,
+                SizedBox(height: 10),
+                Text(
+                  productModel.title,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 11.97),
-                SizedBox(
-                  width: 218.58,
-                  height: 33.85,
-                  child: Text(
-                    "Adidas Converse",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w700,
+                SizedBox(height: 10),
+                Text(
+                  numformat(productModel.price),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Center(
+                  child: Container(
+                    width: 150,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xffd78484),
                     ),
-                  ),
-                ),
-                SizedBox(height: 11.97),
-                SizedBox(
-                  width: 62.83,
-                  height: 25.39,
-                  child: Text(
-                    "1200",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w700,
+                    padding: const EdgeInsets.all(
+                      16,
                     ),
-                  ),
-                ),
-                SizedBox(height: 11.97),
-                Container(
-                  width: 150,
-                  height: 42,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 150,
-                        height: 42,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color(0xffd78484),
-                        ),
-                        padding: const EdgeInsets.only(
-                          left: 33,
-                          right: 32,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Add to Cart",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: "Inter",
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
+                    child: Text(
+                      "Add to Cart",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.w700,
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
