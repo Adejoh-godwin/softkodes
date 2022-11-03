@@ -273,8 +273,9 @@ class ProductCard2 extends StatelessWidget {
               color: b,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Image.asset(
-              "assets/shoe.png",
+            child: Image.network(
+              // "assets/shoe.png",
+              productModel.image,
               fit: BoxFit.fill,
             ),
           ),

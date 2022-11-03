@@ -172,7 +172,7 @@ class _HomeState extends State<Home> {
                                       )
                                     : Container(
                                         width: kIsWeb
-                                            ? mediaWidth * .2
+                                            ? mediaWidth * .15
                                             : mediaWidth * .3,
                                         child: TextField(
                                           controller: _searchQuery,
